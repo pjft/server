@@ -38,6 +38,7 @@ class FtpConnection {
 		}
 
 		if ($connection === false) {
+			var_dump($hostname, $port);
 			throw new \Exception("Failed to connect to ftp");
 		}
 
