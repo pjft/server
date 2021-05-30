@@ -209,6 +209,9 @@ class TwoFactorChallengeController extends Controller {
 			$this->session->set('two_factor_auth_error_message', $e->getMessage());
 		}
 
+		$ip = $this->request->getRemoteAddress();
+        $uid = $user->getUID();
+        \OC::$server->getLogger()->warning("Two-factor challenge failed: $uid (Remote IP: $ip)");
 		$this->session->set('two_factor_auth_error', true);
 		return new RedirectResponse($this->urlGenerator->linkToRoute('core.TwoFactorChallenge.showChallenge', [
 			'challengeProviderId' => $provider->getId(),
